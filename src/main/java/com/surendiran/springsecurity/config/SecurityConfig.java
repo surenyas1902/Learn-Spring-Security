@@ -2,6 +2,7 @@ package com.surendiran.springsecurity.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -21,5 +22,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.withUser(users.username("somnath").password("test123").roles("ADMIN"));
 		
 	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		http.authorizeRequests() // Enabling Security
+			.anyRequest() // For All Requests
+			.authenticated() // Check For Authentication
+			.and() // And
+			.formLogin() // Customer Login type
+			.loginPage("/formlogin") // URL for Login page
+			.loginProcessingUrl("/authenticate") // After Submit button, where to hit the request
+			.permitAll(); // Enable Login Page available for everyone
+	}
+	
+	
 
 }
