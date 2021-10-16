@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,35 @@
 	<p>
 		Welcome to the Surendrian Company Home Page!
 	</p>
+	
+	<hr />
+	
+	<!-- Add link to point to leaders... this is for the managers -->
+	
+	<p>
+		<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+		(Only for Manager peoples)
+	</p>
+	
+	<hr />
+	
+	<!-- Add link to point to leaders... this is for the Admins -->
+	
+	<p>
+		<a href="${pageContext.request.contextPath}/systems">IT System Meeting</a>
+		(Only for Admin peoples)
+	</p>
+	
+	<hr />
+	
+	<!-- Display Username and Role -->
+	<p>
+		User: <security:authentication property="principal.username"/>
+		<br><br>
+		Roles: <security:authentication property="principal.authorities"/>
+	</p>
+	
+	<hr />
 	
 	<!-- Logout button -->
 	

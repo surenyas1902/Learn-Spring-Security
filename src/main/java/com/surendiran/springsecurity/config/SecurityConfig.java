@@ -17,8 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		UserBuilder users = User.withDefaultPasswordEncoder();
 
 		auth.inMemoryAuthentication().withUser(users.username("surendiran").password("test123").roles("EMPLOYEE"))
-				.withUser(users.username("yaswanth").password("test123").roles("MANAGER"))
-				.withUser(users.username("somnath").password("test123").roles("ADMIN"));
+				.withUser(users.username("yaswanth").password("test123").roles("EMPLOYEE", "MANAGER"))
+				.withUser(users.username("somnath").password("test123").roles("EMPLOYEE", "ADMIN"));
 
 	}
 
@@ -27,16 +27,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests() // Enabling Security
 				.antMatchers("/resources/**").permitAll()
-				.anyRequest() // For All Requests
-				.authenticated() // Check For Authentication
+					/*
+					.anyRequest() // For All Requests
+					.authenticated() // Check For Authentication
+					*/
+					.antMatchers("/").hasRole("EMPLOYEE")
+					.antMatchers("/leaders/**").hasAnyRole("MANAGER", "ADMIN")
+					.antMatchers("/systems/**").hasRole("ADMIN")
 				.and() // And
 				.formLogin() // Customer Login type
-				.loginPage("/formlogin") // URL for Login page
-				.loginProcessingUrl("/authenticate") // After Submit button, where to validate the request and Spring will automatically create the endpoint
-				.permitAll() // Enable Login Page available for everyone
+					.loginPage("/formlogin") // URL for Login page
+					.loginProcessingUrl("/authenticate") // After Submit button, where to validate the request and Spring will automatically create the endpoint
+					.permitAll() // Enable Login Page available for everyone
 				.and() // And
 				.logout() // Logout functionality enabled
-				.permitAll(); // Enable Logout available for everyone
+					.permitAll(); // Enable Logout available for everyone
 	}
 
 }
