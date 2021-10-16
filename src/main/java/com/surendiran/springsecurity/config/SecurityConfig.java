@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and() // And
 				.formLogin() // Customer Login type
 				.loginPage("/formlogin") // URL for Login page
-				.loginProcessingUrl("/authenticate") // After Submit button, where to validate the request
+				.loginProcessingUrl("/authenticate") // After Submit button, where to validate the request and Spring will automatically create the endpoint
 				.permitAll() // Enable Login Page available for everyone
 				.and() // And
 				.logout() // Logout functionality enabled
