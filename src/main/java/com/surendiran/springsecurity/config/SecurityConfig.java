@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.anyRequest() // For All Requests
 					.authenticated() // Check For Authentication
 					*/
-					.antMatchers("/").hasRole("EMPLOYEE")
+					.antMatchers("/").hasRole("EMPLOYEE") // This will run the above anyRequest and authenticated method and it will check for Roles specified
 					.antMatchers("/leaders/**").hasAnyRole("MANAGER", "ADMIN")
 					.antMatchers("/systems/**").hasRole("ADMIN")
 				.and() // And
@@ -41,7 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.permitAll() // Enable Login Page available for everyone
 				.and() // And
 				.logout() // Logout functionality enabled
-					.permitAll(); // Enable Logout available for everyone
+				.permitAll() // Enable Logout available for everyone
+				.and()
+				.exceptionHandling()
+					.accessDeniedPage("/404");
 	}
 
 }

@@ -21,21 +21,25 @@
 	
 	<!-- Add link to point to leaders... this is for the managers -->
 	
-	<p>
-		<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
-		(Only for Manager peoples)
-	</p>
-	
-	<hr />
+	<security:authorize access="hasRole('MANAGER') || hasRole('ADMIN')">
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+			(Only for Manager peoples)
+		</p>
+		
+		<hr />
+	</security:authorize>
 	
 	<!-- Add link to point to leaders... this is for the Admins -->
 	
-	<p>
-		<a href="${pageContext.request.contextPath}/systems">IT System Meeting</a>
-		(Only for Admin peoples)
-	</p>
-	
-	<hr />
+	<security:authorize access="hasRole('ADMIN')">
+		<p>
+			<a href="${pageContext.request.contextPath}/systems">IT System Meeting</a>
+			(Only for Admin peoples)
+		</p>
+		
+		<hr />
+	</security:authorize>
 	
 	<!-- Display Username and Role -->
 	<p>

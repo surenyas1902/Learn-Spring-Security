@@ -10,4 +10,10 @@ public class LoginController {
 	public String formLoginPage() {
 		return "form-login";
 	}
+	
+	// add request mapping for access denied
+	@GetMapping("/404")
+	public String AccessDeniedPage() {
+		return "404";
+	}
 }
